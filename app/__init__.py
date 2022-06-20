@@ -69,7 +69,7 @@ def GetPeople():
                 , "Hi! My name is Maurice Korish, and I am from New Jersey. I'm very interested in math, physics, and computer science, and I would love to work on developing technologies that can enhance our understanding of the world we live in."
                 ,"", "./static/img/Maurice/maurice.jpg")
 
-    people = [Luis, Maurice, Lucas]
+    people = [Maurice]
     return people
 
 @app.route('/')
@@ -78,8 +78,8 @@ def index():
 
 
 @app.route('/about')
-def aboutus():
-    return render_template('about.html', title="About Us", type="About Us", people=GetPeople(),  url=os.getenv("URL"))
+def aboutme():
+    return render_template('about.html', title="About Me", type="About Me", people=GetPeople(),  url=os.getenv("URL"))
 
 @app.route('/hobbies')
 def hobbies():
