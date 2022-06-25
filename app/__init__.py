@@ -1,9 +1,14 @@
 import os
 from flask import Flask, render_template, request
 from dotenv import load_dotenv
+from peewee import*
 
 load_dotenv()
 app = Flask(__name__)
+
+mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"), user=os.getenv("MYSQL_USER"), password=os.getenv("MYSQL_PASSWORD"), host=os.getenv("MYSQL_HOST"), port=3306)
+
+print(mydb)
 
 class Person:
     def __init__(self, _name, _hobbies, _workExperience, _education, _aboutMe, _travelMapURL, _profileImageURL="./static/img/logo.jpg"):
