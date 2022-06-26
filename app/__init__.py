@@ -1,9 +1,10 @@
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from dotenv import load_dotenv
 from peewee import*
 import datetime
 from playhouse.shortcuts import model_to_dict
+
 
 load_dotenv()
 
@@ -19,6 +20,7 @@ class TimelinePost(Model):
 
     class Meta:
         database = mydb
+
 
 mydb.connect()
 mydb.create_tables([TimelinePost])
@@ -109,14 +111,23 @@ def hobbies():
 def map():
     return render_template('map.html', title="Map of Places We Have Visited",  url=os.getenv("URL"))
 
+@app.route('/timeline')
+def timeline():
+    return render_template('timeline.html', title="Timeline Post")
+
 @app.route('/api/timeline_post', methods=['POST'])
 def post_time_line_post():
+    
+    #redirect('/timeline')
     name = request.form['name']
     email = request.form['email']
     content = request.form['content']
     timeline_post = TimelinePost.create(name=name, email=email, content=content)
 
-    return model_to_dict(timeline_post)
+    return model_to_dict(timeline_post) 
+
+
+
 
 @app.route('/api/timeline_post', methods=['GET'])
 def get_time_line_post():

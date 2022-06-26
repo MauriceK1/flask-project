@@ -1,0 +1,98 @@
+{% extends "layout.html" %} 
+{% block content %} 
+    <div class="profile">
+        <div id="profile-picture" class="profile-picture">
+            <img src="./static/img/logo.jpg">
+        </div>
+        <h1>{{ title }}</h1>
+
+        <form id="form">
+            <h2>Enter Information:</h2>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    name="name"
+                    placeholder="Enter Your Full Name"
+                />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    placeholder="Enter Your Email"
+                />
+            </div>
+            <div class="form-group">
+                <label for="">Content</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="content"
+                    name="content"
+                    placeholder="Share Something"
+                />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <div id="timeline">
+            <p>Display Information: </p>
+        </div>
+
+    </div>
+    <script>
+        const form = document.getElementById('form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const info = new FormData(form);
+            const updatedInfo = new URLSearchParams(info);
+            console.log([...updatedInfo])
+
+            fetch('/api/timeline_post', {
+                method: "POST",
+                body: updatedInfo,
+            })
+            
+            .then(() => {
+            window.location.reload();
+            })
+
+            
+            
+        })
+
+    </script>
+    <script>
+        async function getContent(){
+                response = await fetch('/api/timeline_post', {
+                method: "GET",
+                })
+                data = await response.json();
+                console.log(data);
+                const timeline = document.getElementById('timeline');
+                timeline.innerHTML = "";
+                posts = data.timeline_posts;
+
+                for(i in posts)
+                {
+                    post = posts[i];
+                    timeline.innerHTML +=
+                    `<div class="post" id="post-${post.id}>
+                        <span class="name">${post.name}</span>
+                        <span class="email">${post.email}</span>
+                        <span class="create_at">${post.create_at}</span>
+
+                        <p>${post.content}</p>
+                    </div>`;
+                }
+
+            }
+            window.onload=getContent;
+
+    </script>
+{% endblock %}
