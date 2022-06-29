@@ -77,6 +77,7 @@ class AppTestCase(unittest.TestCase):
         assert "<label for=\"name\">Name</label>" in html
         assert "<label for=\"email\">Email</label>" in html
         assert "<label for=\"\">Content</label>"  in html
+        assert "Display Information:" in html
 
     def test_malformed_timeline_post(self):
         # POST request missing name

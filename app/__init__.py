@@ -26,7 +26,7 @@ class TimelinePost(Model):
     name = CharField()
     email = CharField()
     content = TextField()
-    create_at = DateTimeField(default=datetime.datetime.now)
+    created_at = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
         database = mydb
@@ -175,6 +175,6 @@ def get_time_line_post():
         'timeline_posts': [
             model_to_dict(p)
             for p in
-TimelinePost.select().order_by(TimelinePost.create_at.desc())
+TimelinePost.select().order_by(TimelinePost.created_at.desc())
         ]
     }
