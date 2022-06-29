@@ -1,9 +1,11 @@
 import os
-from flask import Flask, render_template, request, redirect
+from telnetlib import STATUS
+from flask import Flask, render_template, request, redirect, Response
 from dotenv import load_dotenv
 from peewee import*
 import datetime
 from playhouse.shortcuts import model_to_dict
+import re
 
 load_dotenv()
 
@@ -34,6 +36,10 @@ mydb.connect()
 mydb.create_tables([TimelinePost])
 
 print(mydb)
+
+def checkEmail(email):
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    return re.fullmatch(regex, email)
 
 class Person:
     def __init__(self, _name, _hobbies, _workExperience, _education, _aboutMe, _travelMapURL, _profileImageURL="./static/img/logo.jpg"):
@@ -125,7 +131,33 @@ def timeline():
 
 @app.route('/api/timeline_post', methods=['POST'])
 def post_time_line_post():
-    
+    try:
+        invalidName = Response("Invalid name")
+        invalidName.status_code = 400
+        name = request.form['name']
+        if name == "":
+            return invalidName
+    except KeyError:
+        return invalidName
+
+    try:
+        invalidContent = Response("Invalid content")
+        invalidContent.status_code = 400
+        content = request.form['content']
+        if content == "":
+            return invalidContent
+    except KeyError:
+        return invalidContent
+
+    try:
+        invalidEmail = Response("Invalid email")
+        invalidEmail.status_code = 400
+        email = request.form['email']
+        if email == "" or (not checkEmail(email)):
+            return invalidEmail
+    except KeyError:
+        return invalidEmail
+
     #redirect('/timeline')
     name = request.form['name']
     email = request.form['email']
