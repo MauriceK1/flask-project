@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd ~/root/flask-project
+cd /root/flask-project
 
 git fetch --all
 git pull
