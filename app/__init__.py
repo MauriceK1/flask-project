@@ -123,7 +123,7 @@ def hobbies():
 
 @app.route('/map')
 def map():
-    return render_template('map.html', title="Map of Places We Have Visited",  url=os.getenv("URL"))
+    return render_template('map.html', title="Map of the Places We Have Visited",  url=os.getenv("URL"))
 
 @app.route('/timeline')
 def timeline():
