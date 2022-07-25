@@ -28,7 +28,9 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_IP: ${{ secrets.SSH_IP }}
 
-      - name: Print project root directory
-        run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && pwd'
+      - name: Deploy site
+        run: ssh my-vps '~/redeploy-site.sh'
 #         Alternative method of SSH used instead of conf file since it was not initially working
+#
+#         cd ~/.ssh
 #         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} -i deploy-key.pem -o StrictHostKeyChecking=no 'cd ${{ secrets.PROJECT_ROOT }} && pwd'
