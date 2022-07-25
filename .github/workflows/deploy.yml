@@ -30,6 +30,5 @@ jobs:
 
       - name: Print project root directory
         run: |
-          cd ~/.ssh
-          cat config
+          ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && pwd'
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} -i deploy-key.pem -o StrictHostKeyChecking=no 'cd ${{ secrets.PROJECT_ROOT }} && pwd'
