@@ -21,7 +21,7 @@ class AppTestCase(unittest.TestCase):
         assert "<a class=\"nav-item nav-link\" href=\"/about\">About Me</a>" in html
         assert "<a class=\"nav-item nav-link\" href=\"/hobbies\">Hobbies</a>" in html
         assert "<a class=\"nav-item nav-link\" href=\"/map\">Map</a>" in html
-        assert "<a class=\"nav-item nav-link\" href=\"/timeline\">TimeLine Post</a>" in html
+        assert "<a class=\"nav-item nav-link\" href=\"/timeline\">Timeline Post</a>" in html
         assert "<img src=\"./static/img/logo.svg\" />" in html
 
     def test_timeline(self):
