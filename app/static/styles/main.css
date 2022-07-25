@@ -35,6 +35,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: +120px !important;  /* 50% of your logo width */
+    right: 50%
 }
 
 .nav-logo img {
