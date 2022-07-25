@@ -73,7 +73,7 @@ class AppTestCase(unittest.TestCase):
         html = response.get_data(as_text=True)
         assert "<title>Timeline Post</title>" in html
         assert "Enter Information:" in html
-        assert "<button type=\"submit\" class=\"btn btn-primary\">Submit</button>" in html
+        assert "<button type=\"submit\" class=\"btn btn-primary\" style=\"margin-top: 10px\">Submit</button>" in html
         assert "<label for=\"name\">Name</label>" in html
         assert "<label for=\"email\">Email</label>" in html
         assert "<label for=\"\">Content</label>"  in html
