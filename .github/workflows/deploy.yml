@@ -31,4 +31,6 @@ jobs:
       - name: Print project root directory
         run: |
           ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && pwd'
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} -i deploy-key.pem -o StrictHostKeyChecking=no 'cd ${{ secrets.PROJECT_ROOT }} && pwd'
+#         Alternative method of SSH used instead of conf file since it was not initially working
+#         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} -i deploy-key.pem -o StrictHostKeyChecking=no 'cd ${{ secrets.PROJECT_ROOT }} && pwd'
+          END
