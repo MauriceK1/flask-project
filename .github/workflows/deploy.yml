@@ -29,8 +29,7 @@ jobs:
           SSH_IP: ${{ secrets.SSH_IP }}
 
       - name: Print project root directory
-        run: | 
-          cat ~/.ssh/deploy-key.pem
+        run: |
           cd ~/.ssh
-          ls
-          ssh root@134.209.241.23 -i deploy-key.pem -o StrictHostKeyChecking=no 'cd ${{ secrets.PROJECT_ROOT }} && pwd'
+          cat config
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} -i deploy-key.pem -o StrictHostKeyChecking=no 'cd ${{ secrets.PROJECT_ROOT }} && pwd'
