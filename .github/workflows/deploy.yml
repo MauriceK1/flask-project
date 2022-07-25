@@ -31,4 +31,6 @@ jobs:
       - name: Print project root directory
         run: | 
           cat ~/.ssh/deploy-key.pem
-          ssh -i ~/.ssh/deploy-key.pem root@134.209.241.23 'cd ${{ secrets.PROJECT_ROOT }} && pwd'
+          cd ~/.ssh
+          ls
+          ssh -i deploy-key.pem root@134.209.241.23 'cd ${{ secrets.PROJECT_ROOT }} && pwd'
