@@ -29,7 +29,10 @@ jobs:
           SSH_IP: ${{ secrets.SSH_IP }}
 
       - name: Deploy site
-        run: ssh my-vps '~/redeploy-site.sh'
+        run: |
+          ssh my-vps '~/redeploy-site.sh'
+          docker ps >> redeployment_logs.txt
+          cat redeployment_logs.txt
 #         Alternative method of SSH used instead of conf file since it was not initially working
 #
 #         cd ~/.ssh
