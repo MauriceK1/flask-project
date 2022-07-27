@@ -29,7 +29,9 @@ jobs:
           SSH_IP: ${{ secrets.SSH_IP }}
 
       - name: Deploy site
-        run: ssh my-vps '~/redeploy-site.sh && docker ps >> redeployment_logs.txt && cat redeployment_logs.txt'
+        run: |
+          ssh my-vps '~/redeploy-site.sh && docker ps >> redeployment_logs.txt && cat redeployment_logs.txt'
+          curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
 #         Alternative method of SSH used instead of conf file since it was not initially working
 #
 #         cd ~/.ssh
