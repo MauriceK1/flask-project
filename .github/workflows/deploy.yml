@@ -13,6 +13,10 @@ jobs:
     name: "Deploy to VPS"
     runs-on: ubuntu-latest
     steps:
+      - name: Check if Tests Failed
+        if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+        run: exit 1
+
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh/
@@ -37,9 +41,9 @@ jobs:
             #cd ~/.ssh
             #ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} -i deploy-key.pem -o StrictHostKeyChecking=no 'cd ${{ secrets.PROJECT_ROOT }} && pwd'
       
-      #- name: Failure to Deploy Site
-      #  if: ${{ failure() }} 
-      #  run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚨 Deployment Failed"
+      - name: Failure to Deploy Site
+        if: ${{ failure() }} 
+        run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚨 Deployment Failed"
 
           #- name: Failure to Deploy Site
           #if: ${{ failure() }}
