@@ -17,7 +17,7 @@ class AppTestCase(unittest.TestCase):
         assert "<title>Home Page</title>" in html
         # TODO Add more tests relating to the home page
         assert "<img src=\"./static/img/logo.jpg\">" in html
-        assert "<a class=\"nav-item nav-link\" href=\"/\">Home</a>" in html
+        assert "<a class=\"nav-item nav-link\" href=\"/\">Hom</a>" in html
         assert "<a class=\"nav-item nav-link\" href=\"/about\">About Me</a>" in html
         assert "<a class=\"nav-item nav-link\" href=\"/hobbies\">Hobbies</a>" in html
         assert "<a class=\"nav-item nav-link\" href=\"/map\">Map</a>" in html

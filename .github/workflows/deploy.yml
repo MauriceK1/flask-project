@@ -1,9 +1,11 @@
 name: Deploy
 
 on: 
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Run Tests"]
+    branches: [main]
+    types:
+      - "completed"
   workflow_dispatch:
 
 jobs:
@@ -29,10 +31,16 @@ jobs:
           SSH_IP: ${{ secrets.SSH_IP }}
 
       - name: Deploy site
-        run: |
-          ssh my-vps '~/redeploy-site.sh && docker ps >> redeployment_logs.txt && cat redeployment_logs.txt'
-          curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
-#         Alternative method of SSH used instead of conf file since it was not initially working
-#
-#         cd ~/.ssh
-#         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} -i deploy-key.pem -o StrictHostKeyChecking=no 'cd ${{ secrets.PROJECT_ROOT }} && pwd'
+        run: ssh my-vps '~/redeploy-site.sh && docker ps >> redeployment_logs.txt && cat redeployment_logs.txt && curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"'
+            #Alternative method of SSH used instead of conf file since it was not initially working
+        
+            #cd ~/.ssh
+            #ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} -i deploy-key.pem -o StrictHostKeyChecking=no 'cd ${{ secrets.PROJECT_ROOT }} && pwd'
+      
+      - name: Failure to Deploy Site
+        if: ${{ failure() }} 
+        run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚨 Deployment Failed"
+
+          #- name: Failure to Deploy Site
+          #if: ${{ failure() }}
+          #run: ssh my-vps 'curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚨 Deployment Failed"'
