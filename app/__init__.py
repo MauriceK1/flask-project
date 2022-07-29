@@ -87,7 +87,7 @@ def GetPeople():
 
 @app.route('/')
 def index():
-    return render_template('index.html', title="Home Page", url=os.getenv("URL"))
+    return render_template('index.html', title="The Home Page", url=os.getenv("URL"))
 
 
 @app.route('/about')
@@ -100,7 +100,7 @@ def hobbies():
 
 @app.route('/map')
 def map():
-    return render_template('map.html', title="Map of All the Places We Have Visited",  url=os.getenv("URL"))
+    return render_template('map.html', title="Map of the Places We Have Visited",  url=os.getenv("URL"))
 
 @app.route('/timeline')
 def timeline():
