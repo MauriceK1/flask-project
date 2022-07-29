@@ -33,8 +33,7 @@ jobs:
       #- name: Force Failure
        # run: exit 1
       
-      - name: Tests Successeded
-        if: ${{ failure() }} 
+      - name: Tests Successeded 
         run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content= Tests Succeeded"
 
       - name: Failure to Deploy Site
